@@ -66,7 +66,8 @@ function typedMatches(question: Question, typed: string, correct: string): boole
 }
 
 // Returns true if the learner's response is correct.
-// Choice questions must match the correct option exactly.
+// Choice questions must match the correct option's text exactly. Its position
+// doesn't matter, because the options are shuffled on screen.
 // "I'm not sure" is never correct (scoring.ts gives it 0 points).
 export function checkAnswer(question: Question, response: string): boolean {
   if (question.type === "choice") {

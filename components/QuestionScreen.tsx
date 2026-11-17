@@ -19,6 +19,11 @@ export default function QuestionScreen({ question, numberInSection, sectionSize,
   const [response, setResponse] = useState("");
   const isChoice = question.type === "choice";
 
+  // Hard questions: shuffle the 3 options each time the question is shown, so the
+  // right answer is never in a fixed spot. useState keeps the order stable while
+  // the learner is on this screen. Scoring compares the option text, not its position.
+  const [options] = useState(() => shuffle(question.options ?? []));
+
   // Next needs an answer first:
   // - choice: an option or "I'm not sure" must be picked
   // - typed: at least one non-space character (or use "Skip" instead)
@@ -63,7 +68,7 @@ export default function QuestionScreen({ question, numberInSection, sectionSize,
         </h1>
 
         {isChoice ? (
-          <ChoiceOptions options={question.options ?? []} selected={response} onSelect={setResponse} />
+          <ChoiceOptions options={options} selected={response} onSelect={setResponse} />
         ) : (
           <TypedAnswer value={response} onChange={setResponse} onEnter={next} onSkip={skip} />
         )}
@@ -76,6 +81,16 @@ export default function QuestionScreen({ question, numberInSection, sectionSize,
       </main>
     </>
   );
+}
+
+// Returns a shuffled copy of the list (Fisher–Yates). The original is not changed.
+function shuffle<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
 
 // Shows the prompt with "___" drawn as a styled blank.
