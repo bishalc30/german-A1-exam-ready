@@ -91,5 +91,6 @@ export default function Home() {
     );
   }
 
-  return <ResultsScreen result={scoreCheck(answers, minutesTaken)} onRetake={start} />;
+  // Retake goes back to the Start screen; pressing Start there resets everything.
+  return <ResultsScreen result={scoreCheck(answers, minutesTaken)} onRetake={exit} />;
 }

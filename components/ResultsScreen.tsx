@@ -88,7 +88,7 @@ export default function ResultsScreen({ result, onRetake }: { result: Result; on
         <div className="mt-auto">
           <PrimaryButton onClick={onRetake}>
             <Icon name="refresh" className="text-[20px]" />
-            <span>Retake the check</span>
+            <span>Practise, then retake</span>
           </PrimaryButton>
         </div>
       </main>
