@@ -91,5 +91,5 @@ export default function Home() {
     );
   }
 
-  return <ResultsScreen result={scoreCheck(answers, minutesTaken)} onRetake={start} onExit={exit} />;
+  return <ResultsScreen result={scoreCheck(answers, minutesTaken)} onRetake={start} />;
 }

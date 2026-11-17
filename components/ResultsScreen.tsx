@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { Section } from "@/lib/questions";
 import {
   displayScore,
@@ -22,21 +25,14 @@ const VERDICT_STYLES: Record<Verdict, { icon: string; className: string }> = {
 };
 
 // Results only. Correct answers are never shown.
-export default function ResultsScreen({
-  result,
-  onRetake,
-  onExit,
-}: {
-  result: Result;
-  onRetake: () => void;
-  onExit: () => void;
-}) {
+export default function ResultsScreen({ result, onRetake }: { result: Result; onRetake: () => void }) {
   const verdictStyle = VERDICT_STYLES[result.verdict];
   const weakestScore = result.sections.find((s) => s.section === result.weakest)!.score;
 
   return (
     <>
-      <Header onExit={onExit} />
+      <Header />
+      <ScrollHint />
       <main className="flex flex-1 flex-col pb-10">
         <ProgressBar value={1} />
 
@@ -97,6 +93,36 @@ export default function ResultsScreen({
         </div>
       </main>
     </>
+  );
+}
+
+// "Scroll for your practice tips" hint. Shown only when the page is taller than
+// the screen, and hidden for good once the learner scrolls.
+function ScrollHint() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // results always start at the top
+    const pageIsTaller = document.documentElement.scrollHeight > window.innerHeight + 8;
+    setVisible(pageIsTaller);
+
+    function hide() {
+      if (window.scrollY > 10) {
+        setVisible(false);
+        window.removeEventListener("scroll", hide);
+      }
+    }
+    window.addEventListener("scroll", hide);
+    return () => window.removeEventListener("scroll", hide);
+  }, []);
+
+  if (!visible) return null;
+  return (
+    <div className="pointer-events-none fixed inset-x-0 bottom-4 z-10 flex justify-center">
+      <span className="motion-safe:animate-gentle-bounce rounded-full bg-surface-container px-4 py-2 text-label-md text-primary shadow-sm">
+        Scroll for your practice tips ↓
+      </span>
+    </div>
   );
 }
 

@@ -44,6 +44,16 @@ const config: Config = {
         "space-lg": "2rem",
         "space-xl": "3.5rem",
       },
+      // Small, slow bounce for the results "scroll" hint.
+      keyframes: {
+        "gentle-bounce": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
+      },
+      animation: {
+        "gentle-bounce": "gentle-bounce 1.8s ease-in-out infinite",
+      },
       fontFamily: {
         sans: ["var(--font-jakarta)", "sans-serif"],
       },
