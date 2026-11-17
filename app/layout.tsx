@@ -5,7 +5,7 @@ import "./globals.css";
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
 
 export const metadata: Metadata = {
-  title: "Am I exam-ready?",
+  title: "How ready are you for Goethe A1? | Globio",
   description: "A 10-minute check to see if you're ready to book the Goethe A1 exam.",
 };
 

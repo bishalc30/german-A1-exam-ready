@@ -14,13 +14,13 @@ export default function StartScreen({ onStart }: { onStart: () => void }) {
       <div className="my-auto flex flex-col items-center text-center">
         <div className="mb-space-md inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-primary shadow-sm">
           <Icon name="verified" filled className="text-[16px] text-primary-container" />
-          <span className="text-label-sm">A1 READINESS CHECK</span>
+          <span className="text-label-sm">AM I EXAM-READY? · A1 CHECK</span>
         </div>
 
-        <h1 className="text-display text-on-surface">Am I exam-ready?</h1>
+        <h1 className="text-display text-on-surface">How ready are you for Goethe A1?</h1>
 
         <p className="mt-space-sm text-body-md font-medium text-outline">
-          15 questions · 3 sections · about 10 minutes
+          Find out in 10 minutes, before you book.
         </p>
 
         {/* Note that "I'm not sure" is a smart answer */}
